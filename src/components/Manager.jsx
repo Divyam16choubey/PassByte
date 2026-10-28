@@ -3,6 +3,7 @@ import { useRef } from "react";
 
 const Manager = () => {
     const ref = useRef()
+    const passwordRef = useRef()
     const [form, setform] = useState({ site: "", username: "", password: "" })
     const [passwordArray, setPasswordArray] = useState([])
 
@@ -14,12 +15,13 @@ const Manager = () => {
     }, [])
 
     const showPassword = () => {
-        alert("Show password")
+        passwordRef.current.type = "text"
         if (ref.current.src.includes("icons/eyecross.png")) {
-
             ref.current.src = "icons/eye.png"
+            passwordRef.current.type = "password"
         } else {
             ref.current.src = "icons/eyecross.png"
+            passwordRef.current.type = "text"
         }
     }
 
@@ -39,18 +41,18 @@ const Manager = () => {
             <div className="absolute top-0 z-[-2] h-screen w-screen rotate-180 transform bg-white bg-[radial-gradient(60%_120%_at_50%_50%,hsla(0,0%,100%,0)_0,rgba(252,205,238,.5)_100%)]"></div>
             <div className="mycontainer">
                 <h1 className="text-4xl font-bold text-center">
-                    <span className="text-blue-700">&lt;</span>
+                    <span className="text-purple-700">&lt;</span>
                     Pass
-                    <span className="text-blue-700">Byte/&gt;</span>
+                    <span className="text-purple-700">Byte/&gt;</span>
                 </h1>
-                <p className="text-blue-900 text-lg text-center">Your own Password Manager</p>
+                <p className="text-purple-900 text-lg text-center">Your own Password Manager</p>
                 <div className="flex flex-col p-4 text-black gap-8 items-center">
                     <input value={form.site} onChange={handleChange} placeholder="Enter webstie URL" className="rounded-full border border-purple-500 w-full p-4 py-1" type="text" name="site" id="" />
                     <div className="flex w-full justify-between gap-8">
                         <input value={form.username} onChange={handleChange} placeholder="Enter Username" className="rounded-full border border-purple-500 w-full p-4 py-1" type="text" name="username" id="" />
                         <div className="relative">
 
-                            <input value={form.password} onChange={handleChange} placeholder="Enter Password" className="rounded-full border border-purple-500 w-full p-4 py-1" type="text" name="password" id="" />
+                            <input ref={passwordRef} value={form.password} onChange={handleChange} placeholder="Enter Password" className="rounded-full border border-purple-500 w-full p-4 py-1" type="password" name="password" id="" />
                             <span className="absolute right-[3px] top-[4px] cursor-pointer" onClick={showPassword}>
                                 <img ref={ref} className="p-1" width={26} src="icons/eye.png" alt="eye" />
                             </span>
@@ -78,7 +80,15 @@ const Manager = () => {
                             <tbody className="bg-purple-200">
                                 {passwordArray.map((item, index) => {
                                     return <tr key={index}>
-                                        <td className="py-2 border border-white text-center w-32"><a href={item.site} target="_blank"> {item.site}</a></td>
+                                        <td className="flex items-center justify-center py-2 border border-white text-center"><a href={item.site} target="_blank"> {item.site}</a>
+                                            <div className="size-7 cursor-pointer">
+                                                <lord-icon
+                                                    style={{ "width": "25px", "height": "25px", "paddingTop": "3px", "paddingLeft": "3px" }}
+                                                    src="https://cdn.lordicon.com/iykgtsbt.json"
+                                                    trigger="hover" >
+                                                </lord-icon>
+                                            </div>
+                                        </td>
                                         <td className="py-2 border border-white text-center w-32">{item.username}</td>
                                         <td className="py-2 border border-white text-center w-32">{item.password}</td>
                                     </tr>
