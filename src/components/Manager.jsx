@@ -3,35 +3,35 @@ import { useRef } from "react";
 
 const Manager = () => {
     const ref = useRef()
-    const [form, setform] = useState({site: "", username: "" , password: ""})
+    const [form, setform] = useState({ site: "", username: "", password: "" })
     const [passwordArray, setPasswordArray] = useState([])
 
-    useEffect(()=>{
+    useEffect(() => {
         let passwords = localStorage.getItem("passwords")
-        if(passwords){
+        if (passwords) {
             setPasswordArray(JSON.parse(passwords))
         }
     }, [])
 
-    const showPassword = ()=>{
+    const showPassword = () => {
         alert("Show password")
-        if(ref.current.src.includes("icons/eyecross.png")){
+        if (ref.current.src.includes("icons/eyecross.png")) {
 
             ref.current.src = "icons/eye.png"
-        }else{
+        } else {
             ref.current.src = "icons/eyecross.png"
         }
     }
 
-    const savePassword = ()=>{
+    const savePassword = () => {
         setPasswordArray([...passwordArray, form])
         localStorage.setItem("passwords", JSON.stringify([...passwordArray, form]))
         console.log([...passwordArray, form])
 
     }
 
-    const handleChange = (e)=>{
-        setform({...form, [e.target.name]: e.target.value})
+    const handleChange = (e) => {
+        setform({ ...form, [e.target.name]: e.target.value })
     }
 
     return (
@@ -50,16 +50,41 @@ const Manager = () => {
                         <input value={form.username} onChange={handleChange} placeholder="Enter Username" className="rounded-full border border-purple-500 w-full p-4 py-1" type="text" name="username" id="" />
                         <div className="relative">
 
-                        <input value={form.password} onChange={handleChange} placeholder="Enter Password" className="rounded-full border border-purple-500 w-full p-4 py-1" type="text" name="password" id="" />
-                        <span className="absolute right-[3px] top-[4px] cursor-pointer" onClick={showPassword}>
-                            <img ref={ref} className="p-1" width={26} src="icons/eye.png" alt="eye" />
-                        </span>
+                            <input value={form.password} onChange={handleChange} placeholder="Enter Password" className="rounded-full border border-purple-500 w-full p-4 py-1" type="text" name="password" id="" />
+                            <span className="absolute right-[3px] top-[4px] cursor-pointer" onClick={showPassword}>
+                                <img ref={ref} className="p-1" width={26} src="icons/eye.png" alt="eye" />
+                            </span>
                         </div>
 
                     </div>
                     <button onClick={savePassword} className="flex justify-center items-center bg-purple-400 hover:bg-purple-500 rounded-full px-8 py-2 w-fit gap-2 border border-purple-700">
-                    <lord-icon src="https://cdn.lordicon.com/jgnvfzqg.json" trigger="hover"></lord-icon>
+                        <lord-icon src="https://cdn.lordicon.com/jgnvfzqg.json" trigger="hover"></lord-icon>
                         Add Password</button>
+                </div>
+
+                <div className="passwords">
+                    <h2 className="font-bold text-2xl py-4">Your Passwords</h2>
+                    {passwordArray.length === 0 && <div>No Passwords to show</div>}
+
+                    {passwordArray.length != 0 &&
+                        <table className="table-auto w-full rounded-md overflow-hidden">
+                            <thead className="bg-purple-800 text-white">
+                                <tr>
+                                    <th className="py-2">Site</th>
+                                    <th className="py-2">Username</th>
+                                    <th className="py-2">Password</th>
+                                </tr>
+                            </thead>
+                            <tbody className="bg-purple-200">
+                                {passwordArray.map((item, index) => {
+                                    return <tr key={index}>
+                                        <td className="py-2 border border-white text-center w-32"><a href={item.site} target="_blank"> {item.site}</a></td>
+                                        <td className="py-2 border border-white text-center w-32">{item.username}</td>
+                                        <td className="py-2 border border-white text-center w-32">{item.password}</td>
+                                    </tr>
+                                })}
+                            </tbody>
+                        </table>}
                 </div>
             </div>
         </>
