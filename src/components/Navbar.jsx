@@ -9,10 +9,10 @@ const Navbar = () => {
                     Pass
                     <span className="text-purple-700">Byte/&gt;</span>
                 </div>
-                <button className="text-white bg-purple-700 my-5 rounded-full flex justify-between items-center ring-white ring-1">
+                <a href="https://github.com/Divyam16choubey/PassByte" target="_blank" rel="noopener noreferrer" className="text-white bg-purple-700 my-5 rounded-full flex justify-between items-center ring-white ring-1">
                     <img className="invert w-10 p-1" src="/icons/github.svg" alt="github logo" />
                     <span className="font-bold px-2">GitHub</span>
-                </button>
+                </a>
             </div>
         </nav>
     )
