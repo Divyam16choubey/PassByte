@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useRef } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"
+import { v4 as uuidv4 } from "uuid";
 
 const Manager = () => {
     const ref = useRef()
@@ -42,9 +43,17 @@ const Manager = () => {
     }
 
     const savePassword = () => {
-        setPasswordArray([...passwordArray, form])
-        localStorage.setItem("passwords", JSON.stringify([...passwordArray, form]))
-        console.log([...passwordArray, form])
+        setPasswordArray([...passwordArray, { ...form, id: uuidv4() }])
+        localStorage.setItem("passwords", JSON.stringify([...passwordArray, { ...form, id: uuidv4() }]))
+    }
+
+    const deletePassword = (id) => {
+        setPasswordArray(passwordArray.filter(item=>item.id!==id))
+        localStorage.setItem("passwords", JSON.stringify(passwordArray.filter(item => item.id!==id)))
+
+    }
+
+    const editPassword = (id) => {
 
     }
 
@@ -151,21 +160,21 @@ const Manager = () => {
                                             </div>
                                         </td>
                                         <td className='py-2 border border-white text-center'>
-                                        <span className='cursor-pointer mx-1' onClick={()=>{editPassword(item.id)}}>
-                                            <lord-icon
-                                                src="https://cdn.lordicon.com/gwlusjdu.json"
-                                                trigger="hover"
-                                                style={{"width":"25px", "height":"25px"}}>
-                                            </lord-icon>
-                                        </span>
-                                        <span className='cursor-pointer mx-1'onClick={()=>{deletePassword(item.id)}}>
-                                            <lord-icon
-                                                src="https://cdn.lordicon.com/skkahier.json"
-                                                trigger="hover"
-                                                style={{"width":"25px", "height":"25px"}}>
-                                            </lord-icon>
-                                        </span>
-                                    </td>
+                                            <span className='cursor-pointer mx-1' onClick={() => { editPassword(item.id) }}>
+                                                <lord-icon
+                                                    src="https://cdn.lordicon.com/gwlusjdu.json"
+                                                    trigger="hover"
+                                                    style={{ "width": "25px", "height": "25px" }}>
+                                                </lord-icon>
+                                            </span>
+                                            <span className='cursor-pointer mx-1' onClick={() => { deletePassword(item.id) }}>
+                                                <lord-icon
+                                                    src="https://cdn.lordicon.com/skkahier.json"
+                                                    trigger="hover"
+                                                    style={{ "width": "25px", "height": "25px" }}>
+                                                </lord-icon>
+                                            </span>
+                                        </td>
                                     </tr>
                                 })}
                             </tbody>
