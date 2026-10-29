@@ -95,14 +95,14 @@ const Manager = () => {
                 newestOnTop={false}
                 closeOnClick
                 rtl={false}
-                pauseOnFocusLoss={false} 
+                pauseOnFocusLoss={false}
                 draggable
                 pauseOnHover={false}
-                theme="dark"              
+                theme="light"
             />
 
             <div className="absolute top-0 z-[-2] h-screen w-screen rotate-180 transform bg-white bg-[radial-gradient(60%_120%_at_50%_50%,hsla(0,0%,100%,0)_0,rgba(252,205,238,.5)_100%)]"></div>
-            <div className="mycontainer">
+            <div className="p-3 md:mycontainer min-h-[84vh]">
                 <h1 className="text-4xl font-bold text-center">
                     <span className="text-purple-700">&lt;</span>
                     Pass
@@ -110,12 +110,12 @@ const Manager = () => {
                 </h1>
                 <p className="text-purple-900 text-lg text-center">Your own Password Manager</p>
                 <div className="flex flex-col p-4 text-black gap-8 items-center">
-                    <input value={form.site} onChange={handleChange} placeholder="Enter webstie URL" className="rounded-full border border-purple-500 w-full p-4 py-1" type="text" name="site" id="" />
-                    <div className="flex w-full justify-between gap-8">
-                        <input value={form.username} onChange={handleChange} placeholder="Enter Username" className="rounded-full border border-purple-500 w-full p-4 py-1" type="text" name="username" id="" />
+                    <input value={form.site} onChange={handleChange} placeholder="Enter webstie URL" className="rounded-full border border-purple-500 w-full p-4 py-1" type="text" name="site" id="site" />
+                    <div className="flex flex-col md:flex-row w-full justify-between gap-8">
+                        <input value={form.username} onChange={handleChange} placeholder="Enter Username" className="rounded-full border border-purple-500 w-full p-4 py-1" type="text" name="username" id="username" />
                         <div className="relative">
 
-                            <input ref={passwordRef} value={form.password} onChange={handleChange} placeholder="Enter Password" className="rounded-full border border-purple-500 w-full p-4 py-1" type="password" name="password" id="" />
+                            <input ref={passwordRef} value={form.password} onChange={handleChange} placeholder="Enter Password" className="rounded-full border border-purple-500 w-full p-4 py-1" type="password" name="password" id="password" />
                             <span className="absolute right-[3px] top-[4px] cursor-pointer" onClick={showPassword}>
                                 <img ref={ref} className="p-1" width={26} src="icons/eye.png" alt="eye" />
                             </span>
@@ -132,7 +132,7 @@ const Manager = () => {
                     {passwordArray.length === 0 && <div>No Passwords to show</div>}
 
                     {passwordArray.length != 0 &&
-                        <table className="table-auto w-full rounded-md overflow-hidden">
+                        <table className="table-auto w-full rounded-md overflow-hidden mb-10">
                             <thead className="bg-purple-800 text-white">
                                 <tr>
                                     <th className="py-2">Site</th>
