@@ -47,40 +47,34 @@ const Manager = () => {
             setPasswordArray([...passwordArray, { ...form, id: uuidv4() }])
             localStorage.setItem("passwords", JSON.stringify([...passwordArray, { ...form, id: uuidv4() }]))
             setform({ site: "", username: "", password: "" })
-            toast('Password saved!', {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
+            toast.success("Password saved!", {
+                autoClose: 3000,
+                pauseOnHover: false,
+                pauseOnFocusLoss: false,
+                toastId: "password-saved"
+            });
+        } else {
+            toast.error("Error: Password not saved!", {
+                autoClose: 3000,
+                pauseOnHover: false,
+                pauseOnFocusLoss: false
             });
         }
-        else {
-            toast('Error: Password not saved!');
-        }
-    }
+    };
 
     const deletePassword = (id) => {
         let c = confirm("Do you want to delete??")
-        if(c){
-            setPasswordArray(passwordArray.filter(item=>item.id!==id))
-            localStorage.setItem("passwords", JSON.stringify(passwordArray.filter(item=>item.id!==id))) 
-            toast('Password Deleted!', {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
+        if (c) {
+            setPasswordArray(passwordArray.filter(item => item.id !== id))
+            localStorage.setItem("passwords", JSON.stringify(passwordArray.filter(item => item.id !== id)))
+            toast("Password Deleted!", {
+                autoClose: 3000,
+                pauseOnHover: false,
+                pauseOnFocusLoss: false,
+                toastId: "password-deleted"
             });
         }
-            
-    }
+    };
 
     const editPassword = (id) => {
         setform(passwordArray.filter(i => i.id === id)[0])
@@ -93,21 +87,20 @@ const Manager = () => {
 
     return (
         <>
+
             <ToastContainer
                 position="top-right"
-                autoClose={5000}
+                autoClose={3000}
                 hideProgressBar={false}
                 newestOnTop={false}
                 closeOnClick
                 rtl={false}
-                pauseOnFocusLoss
+                pauseOnFocusLoss={false} 
                 draggable
-                pauseOnHover
-                theme="light"
-                transition="Bounce"
+                pauseOnHover={false}
+                theme="dark"              
             />
-            {/* Same as */}
-            <ToastContainer />
+
             <div className="absolute top-0 z-[-2] h-screen w-screen rotate-180 transform bg-white bg-[radial-gradient(60%_120%_at_50%_50%,hsla(0,0%,100%,0)_0,rgba(252,205,238,.5)_100%)]"></div>
             <div className="mycontainer">
                 <h1 className="text-4xl font-bold text-center">
